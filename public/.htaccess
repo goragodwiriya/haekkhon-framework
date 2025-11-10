@@ -1,0 +1,11 @@
+# public/.htaccess
+
+# เปิดใช้งาน Rewrite Engine
+RewriteEngine On
+
+# ถ้า URL ที่เรียกไม่ใช่ไฟล์ที่มีอยู่จริง
+RewriteCond %{REQUEST_FILENAME} !-f
+# และไม่ใช่โฟลเดอร์ที่มีอยู่จริง
+RewriteCond %{REQUEST_FILENAME} !-d
+# ให้ทำการเขียนทุกอย่างให้ไปที่ index.php
+RewriteRule . index.php [L]

@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haekkhon PHP Framework - Documentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    :root {
+      /* Color System */
+      --bg-page: #0A0A0A;
+      --bg-surface: #141414;
+      --bg-surface-hover: #1E1E1E;
+      --text-primary: #E4E4E7;
+      --text-secondary: #A1A1AA;
+      --text-tertiary: #52525B;
+      --primary-500: #8B5CF6;
+      --primary-400: #A78BFA;
+      --primary-700: #6D28D9;
+      --success: #22C55E;
+      --warning: #F59E0B;
+      --error: #EF4444;
+
+      /* Spacing */
+      --space-xs: 8px;
+      --space-sm: 16px;
+      --space-md: 24px;
+      --space-lg: 32px;
+      --space-xl: 48px;
+      --space-xxl: 64px;
+      --space-section: 96px;
+
+      /* Border Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--space-section) 0;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: var(--space-sm);
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-500) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-lg);
+      font-weight: 400;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: var(--space-md);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: 12px 24px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--primary-500);
+      color: var(--text-primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-400);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--text-tertiary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+    }
+
+    /* Sections */
+    .section {
+      padding: var(--space-section) 0;
+    }
+
+    .section h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .section h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Feature Cards */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-xl);
+      margin-top: var(--space-lg);
+    }
+
+    .feature-card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .feature-card:hover {
+      background: var(--bg-surface-hover);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+      color: var(--primary-500);
+      margin-bottom: var(--space-sm);
+    }
+
+    .feature-card p {
+      color: var(--text-secondary);
+    }
+
+    /* Code Blocks */
+    .code-block {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+      margin: var(--space-md) 0;
+      position: relative;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .code-content {
+      white-space: pre;
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-sm);
+      padding-bottom: var(--space-sm);
+      border-bottom: 1px solid var(--text-tertiary);
+    }
+
+    .code-filename {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .copy-btn {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 4px;
+      border-radius: var(--radius-sm);
+      transition: all 200ms;
+    }
+
+    .copy-btn:hover {
+      color: var(--text-primary);
+      background: var(--bg-surface-hover);
+    }
+
+    .code-content {
+      color: var(--text-primary);
+      overflow-x: auto;
+    }
+
+    /* Syntax Highlighting */
+    .token.comment {
+      color: #71717A;
+    }
+
+    .token.keyword {
+      color: #F472B6;
+    }
+
+    .token.string {
+      color: #6EE7B7;
+    }
+
+    .token.function {
+      color: var(--primary-400);
+    }
+
+    .token.variable {
+      color: #A78BFA;
+    }
+
+    .token.operator {
+      color: #F59E0B;
+    }
+
+    /* Content Blocks */
+    .content-block {
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin: var(--space-lg) 0;
+    }
+
+    .content-block p {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .content-block ul {
+      color: var(--text-secondary);
+      margin-left: var(--space-lg);
+      margin-bottom: var(--space-sm);
+    }
+
+    .content-block li {
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Installation Steps */
+    .install-step {
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin: var(--space-sm) 0;
+      border-left: 4px solid var(--primary-500);
+    }
+
+    .install-step h4 {
+      color: var(--text-primary);
+      margin-bottom: var(--space-xs);
+    }
+
+    /* API Reference */
+    .api-section {
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin: var(--space-lg) 0;
+    }
+
+    .api-function {
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-lg);
+      border-bottom: 1px solid var(--text-tertiary);
+    }
+
+    .api-function:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .function-signature {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--primary-400);
+      font-size: 16px;
+      margin-bottom: var(--space-sm);
+    }
+
+    .function-description {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .param-list {
+      background: var(--bg-page);
+      border-radius: var(--radius-sm);
+      padding: var(--space-sm);
+      margin: var(--space-sm) 0;
+    }
+
+    .param {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-primary);
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .param:last-child {
+      margin-bottom: 0;
+    }
+
+    .param-name {
+      color: var(--primary-400);
+    }
+
+    .param-type {
+      color: var(--success);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero .subtitle {
+        font-size: 1rem;
+      }
+
+      .section h2 {
+        font-size: 2rem;
+      }
+
+      .cta-group {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 0 var(--space-md);
+      }
+
+      .section {
+        padding: var(--space-xxl) 0;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .fade-in-delay-1 {
+      animation-delay: 0.1s;
+    }
+
+    .fade-in-delay-2 {
+      animation-delay: 0.2s;
+    }
+
+    .fade-in-delay-3 {
+      animation-delay: 0.3s;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content fade-in">
+      <h1>Haekkhon PHP Framework</h1>
+      <p class="subtitle">
+        A modern, lightweight, and blazing fast PHP framework for building elegant applications
+      </p>
+      <div class="cta-group fade-in fade-in-delay-1">
+        <a href="#getting-started" class="btn btn-primary">
+          <i data-lucide="rocket"></i>
+          Get Started
+        </a>
+        <a href="#api-reference" class="btn btn-secondary">
+          <i data-lucide="book"></i>
+          API Reference
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" id="features">
+    <div class="container">
+      <h2 class="fade-in">Key Features</h2>
+      <div class="features-grid">
+        <div class="feature-card fade-in fade-in-delay-1">
+          <i data-lucide="route" class="feature-icon"></i>
+          <h3>Simple Routing</h3>
+          <p>Define routes with a simple function call. No complex configuration files or class hierarchies needed.</p>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-2">
+          <i data-lucide="zap" class="feature-icon"></i>
+          <h3>Dynamic Parameters</h3>
+          <p>Support for dynamic route parameters using curly braces syntax like /api/users/{id}.</p>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-3">
+          <i data-lucide="layers" class="feature-icon"></i>
+          <h3>Base Path Support</h3>
+          <p>Works seamlessly in subdirectories, perfect for shared hosting environments.</p>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-1">
+          <i data-lucide="globe" class="feature-icon"></i>
+          <h3>API & AJAX Ready</h3>
+          <p>Automatic JSON responses for API routes and AJAX requests with proper content types.</p>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-2">
+          <i data-lucide="shield" class="feature-icon"></i>
+          <h3>Development Mode</h3>
+          <p>Built-in debug information and detailed error messages in development environment.</p>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-3">
+          <i data-lucide="feather" class="feature-icon"></i>
+          <h3>Ultra Lightweight</h3>
+          <p>Framework consists of just two core functions and a few lines of code. No dependencies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Getting Started Section -->
+  <section class="section" id="getting-started">
+    <div class="container">
+      <h2 class="fade-in">Getting Started</h2>
+
+      <div class="install-step fade-in fade-in-delay-1">
+        <h4>1. Download the Framework</h4>
+        <p>Download the <code>haekkhon.php</code> file and place it in your project directory.</p>
+      </div>
+
+      <div class="install-step fade-in fade-in-delay-2">
+        <h4>2. Create Your Application</h4>
+        <p>Create a new file (e.g., <code>index.php</code>) and include the framework:</p>
+      </div>
+
+      <div class="code-block fade-in fade-in-delay-3">
+        <div class="code-header">
+          <span class="code-filename">index.php</span>
+          <button class="copy-btn" onclick="copyCode(this)">
+            <i data-lucide="copy"></i>
+          </button>
+        </div>
+        <div class="code-content">
+          <span class="token comment">
+            <?php // index.php</span>
+
+<span class="token comment">// Include the Haekkhon framework</span>
+<span class="token keyword">require_once</span> <span class="token string">'haekkhon.php'</span>;
+
+<span class="token comment">// Define your routes</span>
+<span class="token function">route</span>(<span class="token string">'/'</span>, <span class="token keyword">function</span>() {
+    <span class="token keyword">echo</span> <span class="token string">"&lt;h1&gt;Welcome to Haekkhon Framework!&lt;/h1&gt;"</span>;
+});
+
+<span class="token function">route</span>(<span class="token string">'/hello'</span>, <span class="token keyword">function</span>() {
+    <span class="token keyword">echo</span> <span class="token string">"&lt;h1&gt;Hello, World!&lt;/h1&gt;"</span>;
+});
+
+<span class="token comment">// Start the router</span>
+<span class="token function">dispatch</span>();
+                </div>
+            </div>
+
+            <div class="install-step fade-in fade-in-delay-1">
+                <h4>3. Run Your Application</h4>
+                <p>Access your application through a web server. The framework will automatically route requests to the appropriate handlers.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Examples Section -->
+    <section class="section" id="examples">
+        <div class="container">
+            <h2 class="fade-in">Code Examples</h2>
+
+            <div class="content-block fade-in fade-in-delay-1">
+                <h3>Basic Route</h3>
+                <p>Define a simple route that responds with HTML:</p>
+            </div>
+
+            <div class="code-block fade-in fade-in-delay-2">
+                <div class="code-header">
+                    <span class="code-filename">basic-route.php</span>
+                    <button class="copy-btn" onclick="copyCode(this)">
+                        <i data-lucide="copy"></i>
+                    </button>
+                </div>
+                <div class="code-content">
+<span class="token comment">// Define a home route</span>
+<span class="token function">route</span>(<span class="token string">'/'</span>, <span class="token keyword">function</span>() {
+    <span class="token keyword">echo</span> <span class="token string">"&lt;h1&gt;Welcome to our application!&lt;/h1&gt;"</span>;
+    <span class="token keyword">echo</span> <span class="token string">"&lt;p&gt;This is the home page.&lt;/p&gt;"</span>;
+});
+                </div>
+            </div>
+
+            <div class="content-block fade-in fade-in-delay-1">
+                <h3>Dynamic Routes</h3>
+                <p>Create routes with dynamic parameters using curly braces:</p>
+            </div>
+
+            <div class="code-block fade-in fade-in-delay-2">
+                <div class="code-header">
+                    <span class="code-filename">dynamic-routes.php</span>
+                    <button class="copy-btn" onclick="copyCode(this)">
+                        <i data-lucide="copy"></i>
+                    </button>
+                </div>
+                <div class="code-content">
+<span class="token comment">// Route with single parameter</span>
+<span class="token function">route</span>(<span class="token string">'/user/{id}'</span>, <span class="token keyword">function</span>(<span class="token variable">$id</span>) {
+    <span class="token keyword">echo</span> <span class="token string">"&lt;h1&gt;User ID: </span><span class="token variable">$id</span><span class="token string">&lt;/h1&gt;"</span>;
+});
+
+<span class="token comment">// Route with multiple parameters</span>
+<span class="token function">route</span>(<span class="token string">'/api/posts/{category}/{id}'</span>, <span class="token keyword">function</span>(<span class="token variable">$category</span>, <span class="token variable">$id</span>) {
+    <span class="token variable">$data</span> = [
+        <span class="token string">'category'</span> =&gt; <span class="token variable">$category</span>,
+        <span class="token string">'id'</span> =&gt; <span class="token variable">$id</span>
+    ];
+
+    <span class="token comment">// For API routes, return JSON</span>
+    <span class="token keyword">header</span>(<span class="token string">'Content-Type: application/json'</span>);
+    <span class="token keyword">echo</span> <span class="token function">json_encode</span>(<span class="token variable">$data</span>);
+});
+                </div>
+            </div>
+
+            <div class="content-block fade-in fade-in-delay-1">
+                <h3>RESTful API Example</h3>
+                <p>Build a complete REST API with automatic JSON responses:</p>
+            </div>
+
+            <div class="code-block fade-in fade-in-delay-2">
+                <div class="code-header">
+                    <span class="code-filename">restful-api.php</span>
+                    <button class="copy-btn" onclick="copyCode(this)">
+                        <i data-lucide="copy"></i>
+                    </button>
+                </div>
+                <div class="code-content">
+<span class="token comment">// Sample data (in real app, this would come from database)</span>
+<span class="token variable">$users</span> = [
+    [<span class="token string">'id'</span> =&gt; <span class="token string">'1'</span>, <span class="token string">'name'</span> =&gt; <span class="token string">'John Doe'</span>, <span class="token string">'email'</span> =&gt; <span class="token string">'<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1872777076587d60797568747d367b7775">[email&#160;protected]</a>'</span>],
+    [<span class="token string">'id'</span> =&gt; <span class="token string">'2'</span>, <span class="token string">'name'</span> =&gt; <span class="token string">'Jane Smith'</span>, <span class="token string">'email'</span> =&gt; <span class="token string">'<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f656e616a4f6a776e627f636a216c6062">[email&#160;protected]</a>'</span>]
+];
+
+<span class="token comment">// GET /api/users - Get all users</span>
+<span class="token function">route</span>(<span class="token string">'/api/users'</span>, <span class="token keyword">function</span>() {
+    <span class="token keyword">global</span> <span class="token variable">$users</span>;
+    <span class="token keyword">header</span>(<span class="token string">'Content-Type: application/json'</span>);
+    <span class="token keyword">echo</span> <span class="token function">json_encode</span>(<span class="token variable">$users</span>);
+});
+
+<span class="token comment">// GET /api/users/{id} - Get specific user</span>
+<span class="token function">route</span>(<span class="token string">'/api/users/{id}'</span>, <span class="token keyword">function</span>(<span class="token variable">$id</span>) {
+    <span class="token keyword">global</span> <span class="token variable">$users</span>;
+
+    <span class="token keyword">foreach</span> (<span class="token variable">$users</span> <span class="token keyword">as</span> <span class="token variable">$user</span>) {
+        <span class="token keyword">if</span> (<span class="token variable">$user</span>[<span class="token string">'id'</span>] == <span class="token variable">$id</span>) {
+            <span class="token keyword">header</span>(<span class="token string">'Content-Type: application/json'</span>);
+            <span class="token keyword">echo</span> <span class="token function">json_encode</span>(<span class="token variable">$user</span>);
+            <span class="token keyword">return</span>;
+        }
+    }
+
+    <span class="token comment">// User not found (returns 404 JSON automatically)</span>
+});
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Reference Section -->
+    <section class="section" id="api-reference">
+        <div class="container">
+            <h2 class="fade-in">API Reference</h2>
+
+            <div class="api-section fade-in fade-in-delay-1">
+                <div class="api-function">
+                    <div class="function-signature">
+                        <span class="token keyword">function</span> <span class="token function">route</span>(<span class="token variable">string</span> <span class="token variable">$uri</span>, <span class="token variable">callable</span> <span class="token variable">$handler</span>)
+                    </div>
+                    <div class="function-description">
+                        Defines a route that maps a URI pattern to a callback function.
+                    </div>
+                    <div class="param-list">
+                        <div class="param">
+                            <span class="param-name">$uri</span> <span class="param-type">string</span> - The URL pattern to match (e.g., '/', '/hello', '/api/users/{id}')
+                        </div>
+                        <div class="param">
+                            <span class="param-name">$handler</span> <span class="param-type">callable</span> - The function to execute when this route is matched
+                        </div>
+                    </div>
+                </div>
+
+                <div class="api-function">
+                    <div class="function-signature">
+                        <span class="token keyword">function</span> <span class="token function">dispatch</span>()
+                    </div>
+                    <div class="function-description">
+                        Processes the current request and routes it to the appropriate handler. Should be called after all routes are defined.
+                    </div>
+                    <div class="param-list">
+                        <div class="param">No parameters required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block fade-in fade-in-delay-2">
+                <h3>Route Parameters</h3>
+                <p>Dynamic route parameters are defined using curly braces <code>{parameterName}</code>:</p>
+                <ul>
+                    <li><code>/user/{id}</code> - Matches <code>/user/123</code>, <code>/user/abc</code></li>
+                    <li><code>/api/posts/{category}/{id}</code> - Matches <code>/api/posts/tech/456</code></li>
+                    <li>Parameter values are passed to your handler function in the order they appear</li>
+                </ul>
+            </div>
+
+            <div class="content-block fade-in fade-in-delay-3">
+                <h3>Error Handling</h3>
+                <p>The framework automatically handles 404 errors with appropriate responses:</p>
+                <ul>
+                    <li><strong>API Routes:</strong> Returns JSON with <code>application/json</code> content type</li>
+                    <li><strong>Web Routes:</strong> Returns HTML response</li>
+                    <li><strong>AJAX Requests:</strong> Detected via <code>X-Requested-With</code> header</li>
+                    <li><strong>Development Mode:</strong> Includes debug information when <code>APP_ENV=development</code></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Usage Section -->
+    <section class="section" id="advanced">
+        <div class="container">
+            <h2 class="fade-in">Advanced Usage</h2>
+
+            <div class="content-block fade-in fade-in-delay-1">
+                <h3>Environment Configuration</h3>
+                <p>Set the environment to enable debug mode:</p>
+            </div>
+
+            <div class="code-block fade-in fade-in-delay-2">
+                <div class="code-header">
+                    <span class="code-filename">environment.php</span>
+                    <button class="copy-btn" onclick="copyCode(this)">
+                        <i data-lucide="copy"></i>
+                    </button>
+                </div>
+                <div class="code-content">
+<span class="token comment">// Set environment</span>
+<span class="token function">putenv</span>(<span class="token string">'APP_ENV=development'</span>);
+
+<span class="token comment">// Or for production</span>
+<span class="token function">putenv</span>(<span class="token string">'APP_ENV=production'</span>);
+                </div>
+            </div>
+
+            <div class="content-block fade-in fade-in-delay-1">
+                <h3>Complete Application Structure</h3>
+                <p>Here's how to structure a complete application:</p>
+            </div>
+
+            <div class="code-block fade-in fade-in-delay-2">
+                <div class="code-header">
+                    <span class="code-filename">complete-app.php</span>
+                    <button class="copy-btn" onclick="copyCode(this)">
+                        <i data-lucide="copy"></i>
+                    </button>
+                </div>
+                <div class="code-content">
+<span class="token comment"><?php</span>
+<span class="token keyword">require_once</span> <span class="token string">'haekkhon.php'</span>;
+
+<span class="token comment">// Set environment</span>
+<span class="token function">putenv</span>(<span class="token string">'APP_ENV=development'</span>);
+
+<span class="token comment">// Sample data</span>
+<span class="token variable">$posts</span> = [
+    [<span class="token string">'id'</span> =&gt; <span class="token string">'1'</span>, <span class="token string">'title'</span> =&gt; <span class="token string">'Getting Started with Haekkhon'</span>, <span class="token string">'content'</span> =&gt; <span class="token string">'Learn the basics...'</span>],
+    [<span class="token string">'id'</span> =&gt; <span class="token string">'2'</span>, <span class="token string">'title'</span> =&gt; <span class="token string">'Building APIs'</span>, <span class="token string">'content'</span> =&gt; <span class="token string">'Create RESTful APIs...'</span>]
+];
+
+<span class="token comment">// Web routes</span>
+<span class="token function">route</span>(<span class="token string">'/'</span>, <span class="token keyword">function</span>() {
+    <span class="token keyword">echo</span> <span class="token string">'&lt;!DOCTYPE html&gt;
+&lt;html&gt;&lt;head&gt;&lt;title&gt;My Blog&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;&lt;h1&gt;Welcome to My Blog&lt;/h1&gt;&lt;p&gt;Check out our &lt;a href="/api/posts"&gt;API&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;'</span>;
+});
+
+<span class="token function">route</span>(<span class="token string">'/post/{id}'</span>, <span class="token keyword">function</span>(<span class="token variable">$id</span>) {
+    <span class="token keyword">global</span> <span class="token variable">$posts</span>;
+    <span class="token keyword">foreach</span> (<span class="token variable">$posts</span> <span class="token keyword">as</span> <span class="token variable">$post</span>) {
+        <span class="token keyword">if</span> (<span class="token variable">$post</span>[<span class="token string">'id'</span>] == <span class="token variable">$id</span>) {
+            <span class="token keyword">echo</span> <span class="token string">"&lt;h1&gt;</span><span class="token variable">$post</span>[<span class="token string">title</span>]<span class="token string">&lt;/h1&gt;&lt;p&gt;</span><span class="token variable">$post</span>[<span class="token string">content</span>]<span class="token string">&lt;/p&gt;"</span>;
+            <span class="token keyword">return</span>;
+        }
+    }
+    <span class="token keyword">echo</span> <span class="token string">"&lt;h1&gt;Post not found&lt;/h1&gt;"</span>;
+});
+
+<span class="token comment">// API routes</span>
+<span class="token function">route</span>(<span class="token string">'/api/posts'</span>, <span class="token keyword">function</span>() {
+    <span class="token keyword">global</span> <span class="token variable">$posts</span>;
+    <span class="token keyword">header</span>(<span class="token string">'Content-Type: application/json'</span>);
+    <span class="token keyword">echo</span> <span class="token function">json_encode</span>(<span class="token variable">$posts</span>);
+});
+
+<span class="token function">route</span>(<span class="token string">'/api/posts/{id}'</span>, <span class="token keyword">function</span>(<span class="token variable">$id</span>) {
+    <span class="token keyword">global</span> <span class="token variable">$posts</span>;
+    <span class="token keyword">foreach</span> (<span class="token variable">$posts</span> <span class="token keyword">as</span> <span class="token variable">$post</span>) {
+        <span class="token keyword">if</span> (<span class="token variable">$post</span>[<span class="token string">'id'</span>] == <span class="token variable">$id</span>) {
+            <span class="token keyword">header</span>(<span class="token string">'Content-Type: application/json'</span>);
+            <span class="token keyword">echo</span> <span class="token function">json_encode</span>(<span class="token variable">$post</span>);
+            <span class="token keyword">return</span>;
+        }
+    }
+    <span class="token comment">// 404 JSON will be returned automatically</span>
+});
+
+<span class="token comment">// Start the router</span>
+<span class="token function">dispatch</span>();
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section" style="border-top: 1px solid var(--text-tertiary); text-align: center;">
+        <div class="container">
+            <p style="color: var(--text-secondary);">
+                &copy; 2025 Haekkhon PHP Framework. Built with ❤️ for developers.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+      // Initialize Lucide icons
+      lucide.createIcons();
+
+      // Copy code functionality
+      function copyCode(button) {
+        const codeBlock = button.closest('.code-block').querySelector('.code-content');
+        const text = codeBlock.textContent;
+
+        navigator.clipboard.writeText(text).then(() => {
+          // Visual feedback
+          const originalIcon = button.innerHTML;
+          button.innerHTML = '<i data-lucide="check" style="color: var(--success);"></i>';
+
+          setTimeout(() => {
+            button.innerHTML = originalIcon;
+            lucide.createIcons();
+          }, 2000);
+        });
+      }
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // Intersection Observer for fade-in animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      // Observe all fade-in elements
+      document.querySelectorAll('.fade-in').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        observer.observe(el);
+      });
+    </script>
+</body>
+</html>
